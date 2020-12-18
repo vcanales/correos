@@ -7,8 +7,6 @@
     "correos": "./index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
   },
   "author": "Vicente Canales <vicente@canales.io>",
   "license": "MIT",
