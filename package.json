@@ -6,8 +6,7 @@
   "bin": {
     "correos": "./index.js"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "author": "Vicente Canales <vicente@canales.io>",
   "license": "MIT",
   "dependencies": {
