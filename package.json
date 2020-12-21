@@ -3,6 +3,10 @@
   "version": "1.0.1",
   "description": "",
   "main": "index.js",
+  "bugs": {
+    "url": "https://github.com/vcanales/correos/issues"
+  },
+  "respository": "github:vcanales/correos",
   "bin": {
     "correos": "./index.js"
   },
