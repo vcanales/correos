@@ -29,25 +29,29 @@ out(chalk.green(`  Obteniendo informaction para el código '${trackingCode}'`));
 exec(`curl ${requestArgs}`, (err, stdout, stderr) => {
   clearInterval(loader);
   if (err) {
-		out(chalk.red(`Ha ocurrido un error en la peticion de informacion para el codigo '${trackingCode}'`));
-		process.exit(1);
-	}
-  
-  try {
-  	const response = JSON.parse(stdout);
-  	const { seguimiento, ultimoEstado, error } = response;
+    out(
+      chalk.red(
+        `Ha ocurrido un error en la peticion de informacion para el codigo '${trackingCode}'`
+      )
+    );
+    process.exit(1);
+  }
 
-  	if (error) {
-    	out(chalk.red(`No hay informacion para el código '${trackingCode}'`));
-    	process.exit(1);
+  try {
+    const response = JSON.parse(stdout);
+    const { seguimiento, ultimoEstado, error } = response;
+
+    if (error) {
+      out(chalk.red(`No hay informacion para el código '${trackingCode}'`));
+      process.exit(1);
     }
-    
+
     const tracking = JSON.parse(seguimiento);
     const { NombreEntrega: name, RutEntrega: rut } = tracking;
-  
+
     const { TextoTT, fecha } = JSON.parse(ultimoEstado);
     const lastStatusDate = fecha.split(" / ").join("-");
-  
+
     const receptionInfo = name
       ? chalk.white(
           `\nRecibido por ${chalk.yellow(name)}${
@@ -55,15 +59,19 @@ exec(`curl ${requestArgs}`, (err, stdout, stderr) => {
           }`
         )
       : "";
-  
+
     out(
       `\nÚltimo Estado\n-------------\n${chalk.red(
         `${lastStatusDate}`
       )} — ${chalk.yellowBright(TextoTT)}${receptionInfo}\n\n`
     );
     process.exit(0);
-	} catch (jsonError) {
-		out(chalk.red(`El servicio de tracking de correos.cl no esta disponible, o ha ocurrido un error en su sistema.`));
-		process.exit(1);
-	}
+  } catch (jsonError) {
+    out(
+      chalk.red(
+        `El servicio de tracking de correos.cl no esta disponible, o ha ocurrido un error en su sistema.`
+      )
+    );
+    process.exit(1);
+  }
 });
